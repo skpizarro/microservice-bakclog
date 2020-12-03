@@ -46,7 +46,10 @@ public class BacklogController {
                     return error;
                 }).collect(Collectors.toList()); // como retorna un string toca convertirlo a una lista
 
-        ErrorMessage errorMessage = new ErrorMessage("01",errors);
+        ErrorMessage errorMessage = ErrorMessage.builder()
+                .code("01")
+                .messages(errors)
+                .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = "";

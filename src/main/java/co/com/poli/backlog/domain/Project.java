@@ -1,14 +1,22 @@
 package co.com.poli.backlog.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "tbl_projects")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +35,11 @@ public class Project {
     @NotBlank(message = "La descripción es requerida")
     private String description;
 
+    @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
+    @Column(name = "end_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endtDate;
 
@@ -38,85 +48,4 @@ public class Project {
     private Backlog backlog;
 
 
-    public Project() {
-    }
-
-    public Project(Long id, @NotEmpty(message = "El project name es requerido") String projectName, @NotBlank(message = "El project identifier es requerido") @Size(min = 5, max = 7, message = "El project identifer debe estar entre 5 y 7 caracteres") String projectIdentifier, @NotBlank(message = "La descripción es requerida") String description, Date startDate, Date endtDate, Backlog backlog) {
-        this.id = id;
-        this.projectName = projectName;
-        this.projectIdentifier = projectIdentifier;
-        this.description = description;
-        this.startDate = startDate;
-        this.endtDate = endtDate;
-        this.backlog = backlog;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-    public String getProjectIdentifier() {
-        return projectIdentifier;
-    }
-
-    public void setProjectIdentifier(String projectIdentifier) {
-        this.projectIdentifier = projectIdentifier;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndtDate() {
-        return endtDate;
-    }
-
-    public void setEndtDate(Date endtDate) {
-        this.endtDate = endtDate;
-    }
-
-    public Backlog getBacklog() {
-        return backlog;
-    }
-
-    public void setBacklog(Backlog backlog) {
-        this.backlog = backlog;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
-        return id.equals(project.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
